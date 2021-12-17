@@ -1,0 +1,90 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="PM2E3JOSE0072.Views.ListPagos"
+             Title="{Binding Title}">
+
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Nuevo Pago"
+                     Command="{ Binding  AddCommand}"/>
+    </ContentPage.ToolbarItems>
+    <StackLayout Margin="7,0">
+        <ScrollView>
+
+            <StackLayout>
+
+                <Image Source="{Binding Foto}" IsVisible="{Binding IsEmpty}" VerticalOptions="Center"/>
+                <Label Text="No hay Pagos agregados."
+                       HorizontalOptions="Center" 
+                       VerticalOptions="End"
+                       IsEnabled="{Binding IsEmpty}"
+                       IsVisible="{Binding IsEmpty}"
+                       HorizontalTextAlignment="Center"
+                       FontSize="25"/>
+
+                <ListView x:Name="Employees"
+                        ItemsSource="{Binding ListPagos}"
+                        SelectionMode="None"
+                        Margin="10"
+                        HeightRequest="200"
+                         IsVisible="{Binding IsNotEmpty}"
+                        IsEnabled="{Binding IsNotEmpty}">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <Grid x:Name="Item" ColumnSpacing="12">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition/>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions >
+                                        <ColumnDefinition />
+                                        <ColumnDefinition  />
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+
+
+                                    <Label    Style="{StaticResource labelListStyle}"
+                                               Grid.Row="0"
+                                               Grid.Column="0">
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <Span Text="{Binding Descripcion}"/>
+                                                <Span Text=" "/>
+                                                <Span Text="{Binding Monto}"/>
+                                                <Span Text=" "/>
+                                                <Span Text="{Binding Fecha}"/>
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                    </Label>
+                                    
+
+                                    <ImageButton Source="delete_user.png"
+                                             Grid.Row="0"
+                                             Grid.Column="3"
+                                             
+                                            Style="{StaticResource imageButtonStyle}"
+                                            BindingContext="{Binding Source={x:Reference Pagos}, Path=BindingContext}" 
+                                            Command="{Binding DeleteCommand}" 
+                                            CommandParameter="{Binding Source={x:Reference Item}, Path=BindingContext}" />
+
+                                    <ImageButton Source="edit_user.png"
+                                            Grid.Column="2"
+                                            Grid.Row="0"
+                                            Style="{StaticResource imageButtonStyle}"
+                                            BindingContext="{Binding Source={x:Reference Pagos}, Path=BindingContext}" 
+                                            Command="{Binding EditCommand}" 
+                                            CommandParameter="{Binding Source={x:Reference Item}, Path=BindingContext}" />
+                                </Grid>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </StackLayout>
+        </ScrollView>
+    </StackLayout>
+
+
+</ContentPage>
+    
